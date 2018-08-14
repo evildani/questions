@@ -4,12 +4,20 @@ import json
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 
+console.log('Loading the Calc function');
+
+exports.handler = function(event, context, callback) {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    if (event.username === undefined) {
+        callback("400 Invalid Input");
+    }
+
 dynamodb = boto3.resource("dynamodb", region_name='us-west-2', endpoint_url="http://localhost:8000")
 
 table = dynamodb.Table('questions')
 
 rand = random.randint(1,3)
-user = #todo
+user = event.username
 
 username = user+"_"+str(rand)
 
